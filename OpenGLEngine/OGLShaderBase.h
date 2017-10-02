@@ -1,6 +1,6 @@
 #pragma once
-#include "GLEW\include\glew.h"
-#include "GLFW\include\GLFW\glfw3.h"
+#include "GLEW/glew.h"
+#include "GLFW/glfw3.h"
 #include <iostream>
 #include <fstream>
 #include <vector>

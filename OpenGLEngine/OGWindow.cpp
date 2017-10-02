@@ -1,7 +1,7 @@
 #include "OGWindow.h"
 
-#include "GLEW\include\glew.h"
-#include "GLFW\include\GLFW\glfw3.h"
+#include "GLEW/glew.h"
+#include "GLFW/glfw3.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Elliott\Documents\Visual Studio 2015\Projects\OpenGLEngine\OpenGLEngine\GLEW;C:\Users\Elliott\Documents\Visual Studio 2015\Projects\OpenGLEngine\OpenGLEngine\GLFW;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Elliott\Documents\Visual Studio 2015\Projects\OpenGLEngine\OpenGLEngine\GLFW;C:\Users\Elliott\Documents\Visual Studio 2015\Projects\OpenGLEngine\OpenGLEngine\GLEW;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\OpenGL-Wrappers\glfw-3.2.1\include\GLFW;C:\OpenGL-Wrappers\glew-2.1.0\include\GL;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\OpenGL-Wrappers\glfw-3.2.1\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -78,9 +78,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\OpenGL-Wrappers\glfw-3.2.1\include\GLFW;C:\OpenGL-Wrappers\glew-2.1.0\include\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glfw3dll.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\OpenGL-Wrappers\glfw-3.2.1\lib-vc2015;C:\OpenGL-Wrappers\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
