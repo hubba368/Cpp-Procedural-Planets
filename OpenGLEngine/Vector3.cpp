@@ -2,7 +2,12 @@
 #include <math.h>
 
 
-float Vector3::operator [] (const int i)
+float Vector3::operator[](const int i) const
+{
+	return _mElement[i];
+}
+
+float& Vector3::operator [] (const int i)
 {
 	return _mElement[i];
 }
@@ -38,6 +43,18 @@ Vector3 Vector3::operator * (Vector3 & val)
 	return Vector3(_mElement[0] * val[0],
 				   _mElement[1] * val[1],
 				   _mElement[2] * val[2]);
+}
+
+Vector3 Vector3::operator * (float val)
+{
+	return Vector3(_mElement[0] * val,
+				   _mElement[1] * val,
+				   _mElement[2] * val);
+}
+
+void Vector3::SetVector(float x, float y, float z)
+{
+	_mElement[0] = x, _mElement[1] = y, _mElement[2] = z;
 }
 
 

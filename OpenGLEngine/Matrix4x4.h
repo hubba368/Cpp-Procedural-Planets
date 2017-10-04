@@ -17,6 +17,9 @@ public:
 	/// Sets a matrix to an identity matrix (all components except diagonal have a value of 0).
 	void				SetIdentity();
 
+	/// Allows a matrix to be passed to an openGL method as an argument.
+	float*				ToPtr();
+
 	/// Matrix * Matrix multiplication.
 	Matrix4x4			operator *(Matrix4x4& val);
 

@@ -21,6 +21,11 @@ void Matrix4x4::SetIdentity()
 	_mElement[0][0] = _mElement[1][1] = _mElement[2][2] = _mElement[3][3] = 1.0f;
 }
 
+float* Matrix4x4::ToPtr()
+{
+	return &_mElement[0][0];
+}
+
 
 Matrix4x4 Matrix4x4::operator * (Matrix4x4 & val)
 {

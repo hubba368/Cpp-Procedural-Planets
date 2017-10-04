@@ -1,5 +1,6 @@
 #pragma once
 #include "OGLShaderLoader.h"
+#include "Matrix4x4.h"
 
 GLFWwindow			*window;
 
@@ -29,7 +30,7 @@ private:
 
 
 protected:
-
+	unsigned int test;
 
 
 };

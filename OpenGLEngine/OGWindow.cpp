@@ -21,7 +21,7 @@ OGWindow::~OGWindow()
 }
 
 //For Initial Shader Testing
-/*
+
 float vertices[] =
 {
 	-0.5f, -0.5f, 0.0f,
@@ -29,25 +29,10 @@ float vertices[] =
 	0.0f, 0.5f, 0.0f
 };
 
-GLuint gVAO;
-GLuint gVBO;
-glGenVertexArrays(1, &gVAO);
-glBindVertexArray(gVAO);
 
-glGenBuffers(1, &gVBO);
-glBindBuffer(GL_ARRAY_BUFFER, gVBO);
 
-glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-glEnableVertexAttribArray(0);
-glBindBuffer(GL_ARRAY_BUFFER, 0);
-glBindVertexArray(0);
 
-glClear(GL_COLOR_BUFFER_BIT);
-mShader->ActivateShaderProgram();
-glBindVertexArray(gVAO);
-glDrawArrays(GL_TRIANGLES, 0, 3);
-*/
+
 
 void OGWindow::InitialiseShaders() 
 {
@@ -68,7 +53,7 @@ void OGWindow::InitialiseShaders()
 
 	mShader->LinkShaderProgram();
 
-
+	test = glGetUniformLocation(mShader->GetProgramHandle(), "transform");
 
 
 }
@@ -113,7 +98,19 @@ void OGWindow::StartInitialState()
 void OGWindow::RenderLoop() 
 {
 
+	GLuint gVAO;
+	GLuint gVBO;
+	glGenVertexArrays(1, &gVAO);
+	glBindVertexArray(gVAO);
 
+	glGenBuffers(1, &gVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, gVBO);
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 
 
 	while (!glfwWindowShouldClose(window))
@@ -122,6 +119,17 @@ void OGWindow::RenderLoop()
 
 		//rendering pls
 
+		glClear(GL_COLOR_BUFFER_BIT);
+		mShader->ActivateShaderProgram();
+		glBindVertexArray(gVAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		Vector4 *vec = new Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+		Matrix4x4 *mat = new Matrix4x4();
+
+		mat->Translate(*vec);
+
+		glUniformMatrix4fv(test, 1, GL_FALSE, mat->ToPtr());
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

@@ -119,18 +119,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="OGLShaderBase.h" />
     <ClInclude Include="OGLShaderLoader.h" />
     <ClInclude Include="OGWindow.h" />
+    <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="OGLShaderBase.cpp" />
     <ClCompile Include="OGLShaderLoader.cpp" />
     <ClCompile Include="OGWindow.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vector4.cpp" />
   </ItemGroup>
