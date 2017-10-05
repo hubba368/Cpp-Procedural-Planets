@@ -11,7 +11,8 @@
 
 OGWindow::OGWindow()
 {
-	
+	_mWindowHeight = 768;
+	_mWindowWidth = 1280;
 }
 
 
@@ -24,9 +25,47 @@ OGWindow::~OGWindow()
 
 float vertices[] =
 {
-	-0.5f, -0.5f, 0.0f,
-	0.5f, -0.5f, 0.0f,
-	0.0f, 0.5f, 0.0f
+	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+	0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+	0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
 
 
@@ -59,6 +98,30 @@ void OGWindow::InitialiseShaders()
 }
 
 
+void OGWindow::InitCamera() 
+{
+	camera = new MainCamera();
+	camera->InitialiseCamera();
+	camera->SetCameraPosition(&Vector3(0.0f, 0.0f, -1.0f));
+	camera->SetCameraFOV(90);
+}
+
+
+void OGWindow::SetAllMatrices() 
+{
+	//get the V and P matrix components
+	projection = *camera->GetProjectionMatrix();
+	modelview = *camera->GetViewMatrix();
+
+	//re-enter matrix uniforms for the vertex shader - transform is set for each object in scene
+	glUniformMatrix4fv(0, 1, GL_FALSE, modelview.ToPtr());
+	glUniformMatrix4fv(1, 1, GL_FALSE, projection.ToPtr());
+	glUniformMatrix4fv(2, 1, GL_FALSE, transform.ToPtr());
+
+
+}
+
+
 void OGWindow::StartInitialState() 
 {
 	//initialise glfw
@@ -69,7 +132,7 @@ void OGWindow::StartInitialState()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//window creation
-	window = glfwCreateWindow(800, 600, "Window", NULL, NULL);
+	window = glfwCreateWindow(_mWindowWidth, _mWindowHeight, "Window", NULL, NULL);
 
 	if (window == NULL)
 	{
@@ -91,6 +154,7 @@ void OGWindow::StartInitialState()
 
 
 	InitialiseShaders();
+	InitCamera();
 	RenderLoop();
 }
 
@@ -112,25 +176,21 @@ void OGWindow::RenderLoop()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
-
+	//ALL RENDERING IS DONE HERE
 	while (!glfwWindowShouldClose(window))
 	{
-//		ProcessInput(window);
-
-		//rendering pls
 
 		glClear(GL_COLOR_BUFFER_BIT);
+		float aspectRatio = _mWindowWidth / _mWindowHeight;
+		camera->SetProjectionMatrix(90.0f, aspectRatio, 1.0f, 1000.0f);
 		mShader->ActivateShaderProgram();
 		glBindVertexArray(gVAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
+		SetAllMatrices();
 
-		Vector4 *vec = new Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		Matrix4x4 *mat = new Matrix4x4();
 
-		mat->Translate(*vec);
-
-		glUniformMatrix4fv(test, 1, GL_FALSE, mat->ToPtr());
-
+		CameraKeyboardMovement(window);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
@@ -146,11 +206,43 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 }
 
 
-void ProcessInput(GLFWwindow *window) 
+void OGWindow::CameraKeyboardMovement(GLFWwindow *window) 
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) 
 	{
 		glfwSetWindowShouldClose(window, true);
+	}
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) 
+	{
+		camera->DollyCamera(0.01);
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		camera->StrafeCamera(-0.01);
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		camera->DollyCamera(-0.01);
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		camera->StrafeCamera(0.01);
+	}
+	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+	{
+		camera->PedCamera(0.01);
+	}
+	if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+	{
+		camera->PedCamera(-0.01);
+	}
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	{
+		camera->RotateCamera(0, 0, -0.01f);
+	}
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+	{
+		camera->RotateCamera(0, 0, 0.01f);
 	}
 }
 

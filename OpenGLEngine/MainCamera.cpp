@@ -81,15 +81,15 @@ void MainCamera::UpdateViewMatrix()
 }
 
 
-void MainCamera::GetViewMatrix()
+Matrix4x4* MainCamera::GetViewMatrix()
 {
-
+	return &_mViewMatrix;
 }
 
 
-void MainCamera::GetProjectionMatrix()
+Matrix4x4* MainCamera::GetProjectionMatrix()
 {
-
+	return &_mProjectionMatrix;
 }
 
 
@@ -156,13 +156,13 @@ void MainCamera::ZoomCamera(float amount)
 }
 
 
-float MainCamera::SetCameraFOV(float fov)
+void MainCamera::SetCameraFOV(float fov)
 {
-	return 0.0f;
+	_mFOV = fov;
 }
 
 
 float MainCamera::GetCameraFOV()
 {
-	return 0.0f;
+	return _mFOV;
 }

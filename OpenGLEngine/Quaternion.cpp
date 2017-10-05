@@ -42,6 +42,8 @@ Quaternion Quaternion::operator + (Quaternion & val)
 	scalar = _mScalar + val.GetScalar();
 
 	quat.SetQuaternion(vec, scalar);
+
+	return quat;
 }
 
 Quaternion Quaternion::operator * (Quaternion & val)
@@ -131,11 +133,11 @@ void Quaternion::ConvertToRotationMatrix(float * rot)
 }
 
 
-void Quaternion::SetQuaternion(float vx, float vy, float vz, float scalar)
+/*void Quaternion::SetQuaternion(float vx, float vy, float vz, float scalar)
 {
 	_mVector.SetVector(vx, vy, vz);
 	_mScalar = scalar;
-}
+}*/
 
 
 void Quaternion::SetQuaternion(Vector3 & vec, float scalar)

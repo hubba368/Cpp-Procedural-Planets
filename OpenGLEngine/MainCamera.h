@@ -54,10 +54,10 @@ public:
 	void		UpdateViewMatrix();
 
 	/// Gets the view matrix.
-	void		GetViewMatrix();
+	Matrix4x4*		GetViewMatrix();
 
 	/// Gets the projection matrix.
-	void		GetProjectionMatrix();
+	Matrix4x4*		GetProjectionMatrix();
 
 	/// Moves the camera to the left or right.
 	void		StrafeCamera(float amount);
@@ -75,7 +75,7 @@ public:
 	void		ZoomCamera(float amount);
 
 	/// Sets the field of view of the camera.
-	float		SetCameraFOV(float fov);
+	void		SetCameraFOV(float fov);
 
 	/// Gets the field of view of the camera.
 	float		GetCameraFOV();
