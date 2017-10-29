@@ -133,7 +133,7 @@ void MainCamera::RotateCamera(float yaw, float pitch, float roll)
 	Quaternion directionQuat;
 	Quaternion upQuat;
 
-	//get conjugate of rotation quaternion (my own conjugate method in quaternion class)
+	//get conjugate of rotation quaternion 
 	conj.GetConjugate(newRotation);
 	//not the best way to calc rotation, but it works
 	directionQuat.SetQuaternion(_mCameraDirection, 0);
@@ -152,7 +152,7 @@ void MainCamera::RotateCamera(float yaw, float pitch, float roll)
 
 void MainCamera::ZoomCamera(float amount)
 {
-
+	//TODO
 }
 
 
