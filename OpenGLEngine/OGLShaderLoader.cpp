@@ -10,40 +10,42 @@ OGLShaderLoader::OGLShaderLoader()
 
 OGLShaderLoader::~OGLShaderLoader()
 {
-	//Delete shaders and program
+	// Delete shaders and program
 }
 
 void OGLShaderLoader::LoadShaderProgram()
 {
-	//true if there is already a program created
+	// true if there is already a program created
 	if (mSystemHandle != 0xffffffff) 
 	{
 		return;
 	}
 
-	//Create 'shader object' program
+	// Create 'shader object' program
 	mSystemHandle = glCreateProgram();
 }
 
 
 void OGLShaderLoader::AttachAndBuildFromSource(string filePath, GLenum shaderType) 
 {
-	//Attach the shader code to the shader object program
+	// Attach the shader code to the shader object program
 	GLuint programID = mSystemHandle;
 
-	//create new shader code object
+	// create new shader code object
 	OGLShaderBase *shader = new OGLShaderBase();
 
-	//check that code is found and compiled properly
+	// check that code is found and compiled properly
 	if (shader->LoadShaderFromTextFile(filePath, shaderType)) 
 	{
-		//attach vertex/frag/geometry shader to program
+		// attach vertex/frag/geometry shader to program
 		printf("Shader successfully attached.\n");
 		glAttachShader(mSystemHandle, shader->GetShaderHandle());
+		// delete shader object as no longer needed, program object has binary code
+		delete shader;
 	}
 	else 
 	{
-		//delete shader object
+		// delete unusable shader object
 		printf("Shader attachment unsuccessful.\n");
 		delete shader;
 	}

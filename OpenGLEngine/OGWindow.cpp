@@ -132,6 +132,15 @@ void OGWindow::InitialiseShaders()
 
 	glBindFragDataLocation(mShader->GetProgramHandle(), 0, "colour");
 
+	mUniformTexture = glGetUniformLocation(mShader->GetProgramHandle(), "texColour");
+	glUniform1i(mUniformTexture, 0);
+
+	glGenSamplers(1, (GLuint*)(&mUniformTexSampler));
+	glSamplerParameteri(mUniformTexSampler, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glSamplerParameteri(mUniformTexSampler, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glSamplerParameteri(mUniformTexSampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glSamplerParameteri(mUniformTexSampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	mShader->LinkShaderProgram();
 
 }
@@ -215,7 +224,7 @@ void OGWindow::RenderLoop()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	
-	
+	/*
 	GLuint colourBuffer;
 	glGenBuffers(1, &colourBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, colourBuffer);
@@ -223,7 +232,15 @@ void OGWindow::RenderLoop()
 	glDisableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, colourBuffer);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	*/
+	m_texture = new OGLTextureLoader();
+	m_texture->CreateTextureFromFile("../Assets/Textures/house_diffuse.tga");
 	
+	unsigned int texHandle = m_texture->mSyshandle;
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 1);
+
 	//ALL RENDERING IS DONE HERE
 	while (!glfwWindowShouldClose(window))
 	{
@@ -235,6 +252,7 @@ void OGWindow::RenderLoop()
 		transform.Translate(Vector4(0.0, 0.0, -10.0));
 		mShader->ActivateShaderProgram();
 		glBindVertexArray(gVAO);
+		glBindSampler(0, mUniformTexSampler);
 		glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
 		SetAllMatrices();
 

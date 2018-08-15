@@ -48,6 +48,12 @@
     <ClInclude Include="OGLTextureBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OGLTexture_TGA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OGLTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="OGWindow.cpp">

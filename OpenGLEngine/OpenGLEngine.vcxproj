@@ -124,8 +124,10 @@
     <ClInclude Include="OBJLoader.h" />
     <ClInclude Include="OGLShaderBase.h" />
     <ClInclude Include="OGLShaderLoader.h" />
+    <ClInclude Include="OGLTexture.h" />
     <ClInclude Include="OGLTextureBase.h" />
     <ClInclude Include="OGLTextureLoader.h" />
+    <ClInclude Include="OGLTexture_TGA.h" />
     <ClInclude Include="OGWindow.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Vector3.h" />

@@ -16,6 +16,7 @@ class OGLTextureLoader
 
 	virtual void		CreateTextureFromFile(std::string filePath);
 	
+	virtual void		FreeTexture();
 	//TODO:
 	//set texture as render target
 	//set texture as depth target

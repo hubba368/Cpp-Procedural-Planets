@@ -2,6 +2,7 @@
 #include "OGLShaderLoader.h"
 #include "Matrix4x4.h"
 #include "MainCamera.h"
+#include "OGLTextureLoader.h"
 
 GLFWwindow			*window;
 
@@ -11,20 +12,7 @@ GLFWwindow			*window;
 */
 class OGWindow
 {
-public:
-
-	OGWindow();
-
-	~OGWindow();
-
-	MainCamera			*camera;
-	Matrix4x4			transform;
-
-	/// Initialises GLFW and GLEW, and window context.
-	void				StartInitialState();
-
 private:
-	//void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 	OGLShaderLoader		*mShader;	//openGL shader program
 
@@ -33,6 +21,9 @@ private:
 
 	int					_mWindowWidth;
 	int					_mWindowHeight;
+
+	int mUniformTexSampler;
+	int mUniformTexture;
 
 	/// Initialises shaders and shader program.
 	void				InitialiseShaders();
@@ -51,6 +42,24 @@ private:
 
 protected:
 	unsigned int test;
+
+public:
+
+	OGWindow();
+	~OGWindow();
+
+	/////TESTING/////
+	OGLTextureLoader *m_texture;
+	OGLTextureBase	 *m_tex;
+	/////TESTING/////
+
+	MainCamera			*camera;
+	Matrix4x4			transform;
+
+	/// Initialises GLFW and GLEW, and window context.
+	void				StartInitialState();
+
+
 
 
 };
