@@ -25,11 +25,6 @@ void OGLTextureLoader::CreateTextureFromFile(std::string filePath)
 
 	//try and load the image file
 	OGLTexture *tex = new OGLTexture();
-	unsigned char* buffer = NULL;
-	int width;
-	int height;
-	int bpp;
-	int nChannels;
 
 	if (OGLTextureBase::LoadTGA(filePath.c_str(), tex) != true) 
 	{
@@ -37,7 +32,6 @@ void OGLTextureLoader::CreateTextureFromFile(std::string filePath)
 		return;
 	}
 
-	printf("NO ERRORS");
 	//texture now ready for OpenGL usage
 	//set the texture paramters for the current active texture unit
 	glGenTextures(1, &mSyshandle);
@@ -59,7 +53,8 @@ void OGLTextureLoader::CreateTextureFromFile(std::string filePath)
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, tex->OGLTextureObj.width, tex->OGLTextureObj.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex->OGLTextureObj.imageData);
 	}
 
-	free(buffer);
+	free(tex->OGLTextureObj.imageData);
+
 }
 
 void OGLTextureLoader::FreeTexture()

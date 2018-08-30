@@ -15,7 +15,7 @@ private:
 	typedef struct
 	{
 		GLubyte *imageData;
-		GLuint bpp;
+		GLuint bpp; //bits per pixel
 		GLuint width;
 		GLuint height;
 		GLuint texID;
@@ -30,7 +30,7 @@ private:
 
 	typedef struct
 	{
-		GLubyte header[6];
+		unsigned char header[6];
 		GLuint bytesPerPixel;
 		GLuint imageSize;
 		GLuint width;

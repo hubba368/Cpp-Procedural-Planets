@@ -235,11 +235,11 @@ void OGWindow::RenderLoop()
 	*/
 	m_texture = new OGLTextureLoader();
 	m_texture->CreateTextureFromFile("../Assets/Textures/house_diffuse.tga");
-	
+
 	unsigned int texHandle = m_texture->mSyshandle;
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, 1);
+	glBindTexture(GL_TEXTURE_2D, texHandle);
 
 	//ALL RENDERING IS DONE HERE
 	while (!glfwWindowShouldClose(window))
